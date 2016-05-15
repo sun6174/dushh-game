@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+canvas {
+	border: none;
+}
+
+img {
+	outline: none;
+	border: none;
+}
+
+#game {
+	width: 1200px;
+	height: 898px;
+}
+
+#overlay {
+	width: 1200px;
+	height: 898px;
+	position: absolute;
+	z-index: 1;
+	display: none;
+}
+#container {
+	margin-top: 380px;
+	margin-left: 250px;
+}
+input {
+	width: 300px;
+	height: 100px;
+}
+</style>
+</head>
+<body>
+	<div id="game">
+		<div id="overlay">
+			<div id="container">
+				<input type="image" src="./img/inGamePlayAgain.png" id="btnPlayGame" alt="Submit"  />
+				<!--input type="image" src="./img/inGameMoreGames.png" id="btnPlayGame" alt="Submit"  /-->
+			</div>
+		</div>
+		<!--canvas id="canvas" width="558" height="898"></canvas-->
+		<canvas id="canvas" width="1000" height="748"></canvas>
+		
+	</div>
+	
+	<audio id="rocketMoving">
+		<source src="sounds/rocketMoving.mp3" type="audio/mp3">
+	</audio>
+
+	<audio id="rocketAscending">
+		<source src="sounds/rocketAscending.mp3" type="audio/mp3">
+	</audio>
+
+	<audio id="rocketCrashedClouds">
+		<source src="sounds/crashCloud.mp3" type="audio/mp3">
+	</audio>
+
+	<audio id="rocketCrashedObstacles">
+		<source src="sounds/crashObstacle.mp3" type="audio/mp3">
+	</audio>
+
+
+
+	<script src="js/version2.js" type="text/javascript"></script>
+	<script>
+		document.getElementById('btnPlayGame').addEventListener('click', function() {
+			globalGame.startGame();
+			
+			document.getElementById('overlay').style.display = 'none';
+		});
+		
+		window.addEventListener('keydown', function(e) {
+		
+			if (e.keyCode === 13) {
+	
+				if(globalGame.stopped) {
+					
+					globalGame.startGame();
+			
+					document.getElementById('overlay').style.display = 'none';
+					
+				} else if(!globalGame.isStarted) {
+				
+					globalGame.initGame();
+				
+				}
+				e.preventDefault();
+			}
+			
+		}, false);
+		
+		window.addEventListener('keyup', function(e) {
+		
+			if (e.keyCode === 32) {
+				globalGame.paused();
+			}
+		}, false);
+		
+		
+	</script>
+</body>
+</html>
